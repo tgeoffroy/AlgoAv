@@ -71,7 +71,7 @@ def SDTot(listLignes):
     return SDtot
 
 def cout(listLignes, C):
-    m = len(listLignes) + 1
+    m = len(listLignes)
     return SDTot(listLignes) + m * C
 
 main()
