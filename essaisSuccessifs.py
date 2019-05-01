@@ -1,6 +1,6 @@
 import itertools
-
 import matplotlib.pyplot as plt
+from algoAv import *
 
 def appligbri(i):
 	Si = calculerSi(i)
@@ -9,7 +9,6 @@ def appligbri(i):
 			enregistrer(xi)
 			if soltrouvee():
 				if meilleure():
-					Y = xi
 					majValOpt()
 			else:
 				if encorePossible():
@@ -17,83 +16,54 @@ def appligbri(i):
 			defaire(xi)
 
 
-
-
 def calculerSi(i):
-	return tousEssais[i]
+    ListeDeLignes = []
+    for k in range(i):
+        ListeDeLignes.append(generateSolLignes(tousEssais[k], pointsY))
+    return ListeDeLignes
 
 def satisfaisant(x):
+    return True
+
+def enregistrer(x):
+    global solCourante, coutCourant
+    solCourante = x
+    coutCourant = cout(x, C)
+    
+def soltrouvee():
+    return True
+    
+def meilleure():
+    return coutCourant < coutMin
+
+def majValOpt():
+    global meilleurSol, coutMin
+    meilleurSol = solCourante
+    coutMin = coutCourant
 
 def encorePossible():
 	return True
 
-
-
-
-
-
-
-def generateAbsOrdIn(data_in):
-
-	"""
-		génère les abscisses et ordonées pour les données d'entrée
-
-	"""
-
-
-	X = []
-	Y = data_in
-	i=1
-
-	for _ in Y:
-		
-		X.append(i)
-		i+=1
-
-	print("Xin = "+str(X))
-	return X, Y
-
-def generateAbsOrdSol(config,data_in):
-	"""
-		génère les abscisses et ordonées pour une config donnée 
-		(ie par quels points on passe)
-
-	"""
-	X = []
-	Y = []
-	nb1 = 0
-	for k in config:
-		if(k==1):
-			nb1+=1
-
-	for i in range(nb1+1):
-		
-		if(config[i]==1):
-			X.append(i+1)
-			Y.append(data_in[i])
-	
-	print("X : "+str(X))
-	print("Y : "+str(Y))
-	return X, Y
-
-
-def trace(data_in, config):
-	"""
-		trace les données d'entrées et une config passant par ces points
-	"""
-	Xin,Yin = generateAbsOrdIn(data_in)
-	Xconf, Yconf = generateAbsOrdSol(config, data_in)
-	plt.plot(Xin,Yin,'x')
-	plt.plot(Xconf,Yconf, 'red')
-	plt.show()
+def defaire(xi):
+    global solCourante, coutCourant
+    solCourante = None
+    coutCourant = None
 
 
 if __name__ == "__main__"  :
 
-	nbPointsInter = 4
-	tousEssais = [([1]+list(i)+[1]) for i in itertools.product([0, 1], repeat= nbPointsInter)]
-
-	cout
-
-	print("laaaaa")
-	print(calculerSi(3))
+    readfile("tst1.txt")
+    nbPointsInter = len(points) - 2
+    tousEssais = [([1]+list(i)+[1]) for i in itertools.product([0, 1], repeat= nbPointsInter)]
+    
+    pointsY = [p.y for p in points]
+    coutCourant = 9999999999
+    coutMin = 9999999999
+    solCourante = None
+    meilleurSol = None
+    C = 1.5
+    
+    appligbri(len(points))
+    print(coutMin,meilleurSol)
+    trace2(meilleurSol)
+   
