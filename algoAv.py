@@ -35,10 +35,10 @@ class Point( object ):
         return self.x == other.x and self.y == other.y
     
     def distanceDroite( self, ligne):
-        #calcul de a et b de l'equation ax+b
+        #calcul de a et b de l'equation y = ax+b
         a = ( ligne.B.y - ligne.A.y ) / (ligne.B.x - ligne.A.x)
         b = ligne.A.y - ligne.A.x * a
-        dist = abs(a * self.x - self.y + b) / ((a**2 + b**2)**(1/2))
+        dist = abs(a * self.x - self.y + b) / ((a**2 + b**2)**(0.5))
         return dist
     
 class Ligne( object ):
@@ -59,9 +59,10 @@ def SDBrisure(ligne):
     xfin = ligne.B.x
     if(ligne.A.x > ligne.B.x ):
         (xdeb, xfin) = (ligne.B.x, ligne.A.x)
-        
-    for i in range(xdeb, xfin):
+    
+    for i in range(xdeb , xfin - 1):
         SD += points[i].distanceDroite(ligne)
+        print(points[i].distanceDroite(ligne))
         
     return SD
 

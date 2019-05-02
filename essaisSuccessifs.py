@@ -1,5 +1,6 @@
 import itertools
 import matplotlib.pyplot as plt
+import time
 from algoAv import *
 
 def appligbri(i):
@@ -27,8 +28,11 @@ def satisfaisant(x):
 
 def enregistrer(x):
     global solCourante, coutCourant
+    print(x)
+    trace2(x)
     solCourante = x
     coutCourant = cout(x, C)
+    print(coutCourant)
     
 def soltrouvee():
     return True
@@ -63,7 +67,13 @@ if __name__ == "__main__"  :
     meilleurSol = None
     C = 1.5
     
-    appligbri(len(points))
+    t0 = time.time()
+    appligbri(len(tousEssais))
+    tf = time.time()
+    
+    print("\n")
+    print("Temps de calcul : "+str(tf-t0))
     print(coutMin,meilleurSol)
+    print(SDTot(meilleurSol))
     trace2(meilleurSol)
    
