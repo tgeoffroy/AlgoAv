@@ -30,6 +30,7 @@ def enregistrer(x):
     global solCourante, coutCourant
     solCourante = x
     coutCourant = cout(x, C)
+    trace2(x)
     
 def soltrouvee():
     return True
@@ -56,7 +57,8 @@ if __name__ == "__main__"  :
     readfile("tst1.txt")
     nbPointsInter = len(points) - 2
     tousEssais = [([1]+list(i)+[1]) for i in itertools.product([0, 1], repeat= nbPointsInter)]
-    
+    print(tousEssais)
+
     pointsY = [p.y for p in points]
     coutCourant = 9999999999
     coutMin = 9999999999
@@ -71,6 +73,6 @@ if __name__ == "__main__"  :
     print("\n")
     print("Temps de calcul : "+str(tf-t0))
     print(coutMin,meilleurSol)
-    print(SDTot(meilleurSol))
+    
     trace2(meilleurSol)
    
