@@ -28,11 +28,8 @@ def satisfaisant(x):
 
 def enregistrer(x):
     global solCourante, coutCourant
-    print(x)
-    trace2(x)
     solCourante = x
     coutCourant = cout(x, C)
-    print(coutCourant)
     
 def soltrouvee():
     return True
