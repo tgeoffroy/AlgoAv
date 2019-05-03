@@ -1,5 +1,5 @@
 import time
-from algoAv import *
+from outilsLignesBrises import *
 from math import *
 
 def progDyn(pointsY, C):
@@ -20,7 +20,7 @@ def progDyn(pointsY, C):
     for i in range(2, nbPoints):
         for j in range(nbPoints - i):
             segMin = matrice[j][j+1] + matrice[j+1][j+i]
-
+            
             for l in range(1,i-2):
                 segMin = min(segMin, matrice[j][j+1+l]+matrice[j+1+l][j+i])
             
@@ -31,7 +31,7 @@ def progDyn(pointsY, C):
 
 if __name__ == "__main__":
     
-    readfile("tst1.txt")
+    readfile("DataSet2")
     pointsY = [p.y for p in points]
     
     t0 = time.time()
@@ -39,6 +39,7 @@ if __name__ == "__main__":
     tf = time.time()
     
     print(matrice)
+    print(matrice[0][len(points)-1])
     print("Temps de calcul : "+str(tf-t0))
     
 	

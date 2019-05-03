@@ -1,10 +1,14 @@
 import matplotlib.pyplot as plt
 import itertools
 
+#Variable Globale, ensemble des points
 points = []
 
+
 def readfile(filename):
-    
+    """
+        Fonction pour parser un fichier
+    """
     file = open(filename,"r")
     
     if file.mode == "r":
@@ -16,8 +20,10 @@ def readfile(filename):
         p = Point(int(float(line[0])),int(float(line[1])))
         points.append(p)
 
-
 class Point( object ):
+    """
+        Classe métier Point, qui permet de calculer la distance à une ligne
+    """
     def __init__( self, x, y):
         self.x = x 
         self.y = y
@@ -32,10 +38,14 @@ class Point( object ):
         #calcul de a et b de l'equation y = ax+b
         a = ( ligne.B.y - ligne.A.y ) / (ligne.B.x - ligne.A.x)
         b = ligne.A.y - ligne.A.x * a
+        #Calcul de la distance d'un point à une droite
         dist = abs(self.y - a * self.x - b) / ((a**2 + 1)**(0.5))
         return dist
-    
+
 class Ligne( object ):
+    """
+        Classe métier Ligne
+    """
     def __init__( self, A, B):
         self.A = A
         self.B = B
@@ -48,6 +58,9 @@ class Ligne( object ):
 
 
 def SDBrisure(ligne):
+    """
+        Fonction qui calcul la distance des points à une droite(ligne)
+    """
     SD = 0
     xdeb = ligne.A.x
     xfin = ligne.B.x
@@ -59,20 +72,29 @@ def SDBrisure(ligne):
         
     return SD
 
+
 def SDTot(listLignes):
+    """
+        Fonction qui calcul la somme des distances des points à une ligne brisée (liste de lignes)
+    """
     SDtot = 0
     for l in listLignes : 
         SDtot += SDBrisure(l)
     return SDtot
 
 def cout(listLignes, C):
+    """
+        Fonction qui calcul le cout d'une ligne brisée
+        @listLignes ligne brisée
+        @C coefficient
+    """
     m = len(listLignes)
     return SDTot(listLignes) + m * C
 
 def generateSolAffichage(config, pointsY):
     """
-		génère les abscisses et ordonées pour une config donnée 
-		(ie par quels points on passe)
+		Génère les abscisses et ordonées pour une config donnée
+        pour facilité l'affichage de la solution
 	"""
     X = []
     Y = []
@@ -87,7 +109,7 @@ def generateSolAffichage(config, pointsY):
 
 def generateSolLignes(config):
     """
-		génère les abscisses et ordonées pour une config donnée 
+		Génère des lignes pour une config donnée 
 		(ie par quels points on passe)
 	"""
     pointsY = [p.y for p in points]
@@ -115,44 +137,4 @@ def trace(config):
     
     Xconf, Yconf = generateSolAffichage(config, pointsY)
     plt.plot(Xconf,Yconf, 'red')
-    print(Xconf)
-    print(Yconf)
     plt.show()
-    
-def trace2(lignes):
-    
-    pointsY = [p.y for p in points]
-    pointsX = [p.x for p in points]
-    plt.plot(pointsX, pointsY, 'x')
-    
-    Xconf = []
-    Yconf = []
-    
-    for l in lignes:
-        Xconf.append(l.A.x)
-        Xconf.append(l.B.x)
-        Yconf.append(l.A.y)
-        Yconf.append(l.B.y)
-        
-    plt.plot(Xconf,Yconf, 'red')
-    plt.show()
-    
-if __name__ == "__main__"  :
-    
-    readfile("tst1.txt")
-    
-    nbPointsInter = len(points) - 2
-    tousEssais = [([1]+list(i)+[1]) for i in itertools.product([0, 1], repeat= nbPointsInter)]
-
-    pointsY = [p.y for p in points]
-    print(generateSolLignes(tousEssais[3],pointsY))
-    trace(tousEssais[3])
-    print(tousEssais[3])
-    l = Ligne(points[0],points[2])
-    print(points)
-    print(l)
-    print(points[1].distanceDroite(l))
-    print("SD")
-    print(SDBrisure(l))
-    
-
