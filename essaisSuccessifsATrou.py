@@ -47,7 +47,7 @@ def encorePossible(i):
     global coutCourant
     lignes = generateSolLignes(X)
     coutCourant = cout(lignes, C)
-    return (i < longueurSolution - 1) 
+    return (i < longueurSolution - 1) and (coutCourant < coutMin) and X[0]==1
     #(coutCourant<coutMin) and X[0]==1 sont 2 conditions d'élagage
 
 # on met à jour la valeur optimale
