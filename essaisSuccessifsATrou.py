@@ -65,7 +65,7 @@ def defaire(x):
 if __name__ == "__main__" :
     
     #Lecture d'un jeu de données
-    readfile("DataSet1")
+    readfile("DataSet/DataSet15")
     
 	#Initialisation des constantes et variables
     longueurSolution = len(points) #nombre de point du fichier_in

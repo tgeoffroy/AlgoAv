@@ -31,7 +31,7 @@ def progDyn(pointsY, C):
 
 if __name__ == "__main__":
     
-    readfile("DataSet2")
+    readfile("DataSet/DataSet20")
     pointsY = [p.y for p in points]
     
     t0 = time.time()

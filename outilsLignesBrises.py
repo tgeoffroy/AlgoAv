@@ -19,6 +19,7 @@ def readfile(filename):
         line = [i.strip() for i in line]
         p = Point(int(float(line[0])),int(float(line[1])))
         points.append(p)
+    file.close()
 
 class Point( object ):
     """
