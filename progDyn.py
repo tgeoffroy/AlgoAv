@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import time
 from algoAv import *
 from math import *
@@ -20,12 +19,12 @@ def progDyn(pointsY, C):
         
     for i in range(2, nbPoints):
         for j in range(nbPoints - i):
-            min_seg = matrice[j][j+1] + matrice[j+1][j+i]
-            if(i>2):
-                for l in range(1,i-2):
-                    min_seg = min(min_seg, matrice[j][j+1+l]+matrice[j+1+l][j+i])
+            segMin = matrice[j][j+1] + matrice[j+1][j+i]
+
+            for l in range(1,i-2):
+                segMin = min(segMin, matrice[j][j+1+l]+matrice[j+1+l][j+i])
             
-            matrice[j][j+i] = min(min_seg, SDBrisure(Ligne(Point(j+1,pointsY[j]),Point(j+i+1,pointsY[j+i]))) + C)
+            matrice[j][j+i] = min(segMin, SDBrisure(Ligne(Point(j+1,pointsY[j]),Point(j+i+1,pointsY[j+i]))) + C)
 
     return matrice
     
@@ -35,8 +34,13 @@ if __name__ == "__main__":
     readfile("tst1.txt")
     pointsY = [p.y for p in points]
     
+    t0 = time.time()
     matrice = progDyn(pointsY, 1.5)
+    tf = time.time()
+    
     print(matrice)
+    print("Temps de calcul : "+str(tf-t0))
+    
 	
 	
 	

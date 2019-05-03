@@ -85,11 +85,12 @@ def generateSolAffichage(config, pointsY):
         
     return X, Y
 
-def generateSolLignes(config, pointsY):
+def generateSolLignes(config):
     """
 		génère les abscisses et ordonées pour une config donnée 
 		(ie par quels points on passe)
 	"""
+    pointsY = [p.y for p in points]
     lignes = []
     tmpPoints = []
     k = 0
@@ -114,6 +115,8 @@ def trace(config):
     
     Xconf, Yconf = generateSolAffichage(config, pointsY)
     plt.plot(Xconf,Yconf, 'red')
+    print(Xconf)
+    print(Yconf)
     plt.show()
     
 def trace2(lignes):
